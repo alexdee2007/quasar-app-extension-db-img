@@ -72,6 +72,14 @@
         }
       }
     },
+    watch: {
+      fileName() {
+        this.getImgSrc();
+      },
+      url() {
+        this.imgSrc = this.url;
+      }
+    },
     methods: {
       async getImgSrc() {
         try {
