@@ -1,11 +1,16 @@
 <template>
-  <div :style="{cursor: loaded ? 'zoom-in' : 'default', height, width}" :class="{'q-bordered rounded-borders': bordered}">
+  <div :style="{cursor: loaded && !error  ? 'zoom-in' : 'default', height, width}" :class="{'q-bordered rounded-borders': bordered}" @hide.stop>
+    <template v-if="error" >
+      <q-icon name="warning" color="red" class="fit" style="border-radius: 4px; padding: 0 12px; border: 1px solid;" />
+      <slot></slot>
+    </template>
     <q-img
       v-bind="$props"
       :src="imgSrc"
       ref="img"
       v-viewer="viewerOptions"
       @load="loaded=true"
+      @error="onError"
       @click.stop.prevent
       class="fit"
       >
@@ -53,6 +58,7 @@
       return {
         imgSrc: '',
         loaded: false,
+        error: false,
         viewerOptions: {
           navbar: false,
           zIndex: 99999,
@@ -81,6 +87,11 @@
       }
     },
     methods: {
+      onError(obj) {
+        this.loaded = true;
+        this.error = true;
+        this.$emit('error');
+      },
       async getImgSrc() {
         try {
           this.$refs.img.isLoading = true;
@@ -115,5 +126,8 @@
   .viewer-button::before {
     bottom: 20px !important;
     left: 25px !important;
+  }
+  .q-img__content .backgroud-description {
+    margin: 0;
   }
 </style>
