@@ -1,10 +1,11 @@
 <template>
   <div :style="{cursor: loaded && !error  ? 'zoom-in' : 'default', height, width}" :class="{'q-bordered rounded-borders': bordered}" @hide.stop>
-    <template v-if="error" >
+    <template v-if="error">
       <img src="../assets/img404.png" class="fit" style="object-fit: contain;">
       <slot></slot>
     </template>
     <q-img
+      v-else
       v-bind="$props"
       :src="imgSrc"
       ref="img"
