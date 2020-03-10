@@ -1,7 +1,7 @@
 <template>
   <div :style="{cursor: loaded && !error  ? 'zoom-in' : 'default', height, width}" :class="{'q-bordered rounded-borders': bordered}" @hide.stop>
     <template v-if="error" >
-      <q-icon name="warning" color="red" class="fit" style="border-radius: 4px; padding: 0 12px; border: 1px solid;" />
+      <img src="../assets/img404.png" class="fit" style="object-fit: contain;">
       <slot></slot>
     </template>
     <q-img
