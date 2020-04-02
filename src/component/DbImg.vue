@@ -25,8 +25,6 @@
 
 <script>
 
-  import minioApi from 'src/api/minio';
-
   export default {
     name: 'DbImg',
     props: {
@@ -96,7 +94,7 @@
       async getImgSrc() {
         try {
           this.$refs.img.isLoading = true;
-          this.imgSrc = await minioApi.getPresignedUrlForGet(this.fileName);
+          this.imgSrc = await this.$api.minio.getPresignedUrlForGet(this.fileName);
         } catch (err) {
           console.error(err);
         } finally {
